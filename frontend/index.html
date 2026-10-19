@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time-Series Forecasting Research — Rayyan Anwar</title>
+<style>
+:root{--bg:#f2f5f7;--surface:#fff;--ink:#14202b;--muted:#52606d;--rule:#d5dde3;--accent:#0b6e7f;--accent-ink:#fff;--err:#a61b1b;--c2:#b45f06;--band:#8cc7d1}
+@media (prefers-color-scheme:dark){:root{--bg:#10171d;--surface:#18222b;--ink:#e8eef2;--muted:#9fb0bd;--rule:#2b3945;--accent:#5cc2d3;--accent-ink:#06222a;--err:#ff8c8c;--c2:#f0b36b;--band:#1f5b66}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 48px}h1{font-size:1.7rem;margin:0 0 4px}h2{font-size:1.15rem;margin:0 0 8px}
+p.lede{color:var(--muted);margin:0 0 16px;max-width:72ch}section{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:16px;margin:0 0 16px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}label{display:block;font-weight:600;margin:4px 0 3px;font-size:.9rem}select,input,textarea,button{font:inherit;color:inherit}
+select,input[type=number],textarea{padding:6px;border:1px solid var(--rule);border-radius:4px;background:var(--bg)}input[type=number]{width:90px}textarea{width:100%;min-height:70px}
+button{padding:8px 16px;border-radius:4px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:600;cursor:pointer}button:disabled{opacity:.55}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.status{min-height:1.5em;color:var(--muted);margin:8px 0 0}.status.error{color:var(--err);font-weight:600}
+.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:640px;font-variant-numeric:tabular-nums}th,td{padding:5px 8px;border-bottom:1px solid var(--rule);text-align:right}th:first-child,td:first-child{text-align:left}
+svg{width:100%;max-width:760px;height:auto}text{fill:var(--muted);font-size:11px}.note{color:var(--muted);font-size:.9rem}footer{color:var(--muted);font-size:.9rem}
+</style></head><body><main>
+<h1>Time-Series Forecasting Research</h1>
+<p class="lede">Benchmarks, exponential smoothing and lag regression, judged by rolling-origin backtests. Intervals are calibrated from past forecast errors. Synthetic data only; a forecast is not a promise.</p>
+<section aria-labelledby="f-h"><h2 id="f-h">Forecast</h2><div class="row">
+<div><label for="src">Series</label><select id="src"><option value="daily_weekly">daily_weekly (synthetic)</option><option value="monthly_yearly">monthly_yearly (synthetic)</option><option value="random_walk">random_walk (synthetic)</option><option value="ar1">ar1 (synthetic)</option><option value="level_shift">level_shift (synthetic)</option><option value="values">my own numbers</option></select></div>
+<div><label for="md">Model</label><select id="md"><option>holt_winters</option><option>seasonal_naive</option><option>naive</option><option>drift</option><option>mean</option><option>moving_average</option><option>ses</option><option>holt</option><option>ridge_lags</option><option>gbm_lags</option></select></div>
+<div><label for="hz">Horizon</label><input id="hz" type="number" min="1" max="60" value="14"></div><div><label for="se">Season (own numbers)</label><input id="se" type="number" min="1" max="365" value="7"></div><button id="go">Forecast</button></div>
+<label for="vals">Own numbers (at least 30, comma or space separated; used only when "my own numbers" is selected)</label><textarea id="vals"></textarea>
+<p class="status" id="st" role="status">Choose a series and model, then forecast.</p><div id="chart"></div><div id="bt"></div></section>
+<section aria-labelledby="r-h"><h2 id="r-h">Committed backtest (MASE, lower is better; 1.0 = seasonal naive)</h2><p class="status" id="rst" role="status">Loading…</p><div class="scroll"><table id="tb"></table></div><p class="note" id="cfg"></p></section>
+<footer><p><strong>About.</strong> Built by Rayyan Anwar (AI/ML Engineer | Researcher | Technology Manager | Software Developer). Educational research code; MIT licence. © Rayyan Anwar.</p></footer>
+</main><script>
+"use strict";
+const $=(i)=>document.getElementById(i),NS="http://www.w3.org/2000/svg";
+function st(id,t,e){const x=$(id);x.textContent=t;x.className="status"+(e?" error":"")}
+function clear(n){while(n.firstChild)n.removeChild(n.firstChild)}
+function row(t,v,h){const tr=document.createElement("tr");for(const x of v){const c=document.createElement(h?"th":"td");c.textContent=x;tr.appendChild(c)}t.appendChild(tr)}
+async function api(p,b){const r=await fetch(p,b?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}:{});const d=await r.json().catch(()=>({}));
+ if(!r.ok){let m="Request failed ("+r.status+")";if(d.error&&d.error.message)m=d.error.message;else if(typeof d.detail==="string")m=d.detail;else if(Array.isArray(d.detail)&&d.detail[0])m=d.detail[0].loc.join(".")+": "+d.detail[0].msg;throw new Error(m)}return d}
+function el(tag,a,t){const e=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(a||{}))e.setAttribute(k,v);if(t!==undefined)e.textContent=t;return e}
+function chart(d){const host=$("chart");clear(host);const hist=d.history?d.history.values:[],fc=d.forecast,lo=d.lower,hi=d.upper;const all=hist.concat(fc,lo||[],hi||[]);const W=760,H=260,p={l:50,r:10,t:10,b:26};
+ const mx=Math.max(...all),mn=Math.min(...all),N=hist.length+fc.length;const x=(i)=>p.l+(W-p.l-p.r)*i/Math.max(1,N-1),y=(v)=>H-p.b-(H-p.t-p.b)*(v-mn)/Math.max(1e-9,mx-mn);
+ const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"History and forecast chart"});svg.appendChild(el("line",{x1:p.l,y1:H-p.b,x2:W-p.r,y2:H-p.b,stroke:"var(--rule)"}));
+ svg.appendChild(el("text",{x:2,y:p.t+8},mx.toFixed(1)));svg.appendChild(el("text",{x:2,y:H-p.b},mn.toFixed(1)));
+ if(lo&&hi){const pts=fc.map((_,i)=>x(hist.length+i)+","+y(hi[i])).concat(fc.map((_,i)=>x(hist.length+fc.length-1-i)+","+y(lo[fc.length-1-i])));svg.appendChild(el("polygon",{points:pts.join(" "),fill:"var(--band)",opacity:"0.6"}))}
+ if(hist.length)svg.appendChild(el("polyline",{fill:"none",stroke:"var(--ink)","stroke-width":1.3,points:hist.map((v,i)=>x(i)+","+y(v)).join(" ")}));
+ svg.appendChild(el("polyline",{fill:"none",stroke:"var(--c2)","stroke-width":2.2,points:fc.map((v,i)=>x(hist.length+i)+","+y(v)).join(" ")}));
+ if(d.history){svg.appendChild(el("text",{x:p.l,y:H-8},d.history.dates[0]));svg.appendChild(el("text",{x:W-p.r,y:H-8,"text-anchor":"end"},d.forecast_dates[d.forecast_dates.length-1]))}host.appendChild(svg);
+ const n=document.createElement("p");n.className="note";n.textContent="Black: history · orange: forecast · shaded: "+Math.round(d.level*100)+"% band. "+d.interval_note;host.appendChild(n)}
+$("go").onclick=async()=>{const b=$("go");b.disabled=true;st("st","Forecasting…");clear($("chart"));clear($("bt"));
+ try{const src=$("src").value;const body={model:$("md").value,horizon:parseInt($("hz").value,10)};
+  if(src==="values"){body.values=$("vals").value.split(/[\s,;]+/).filter(Boolean).map(Number);body.season=parseInt($("se").value,10);if(body.values.some(Number.isNaN))throw new Error("Please enter numbers only.")}else body.kind=src;
+  const d=await api("/api/forecast",body);chart(d);if(d.backtest){const t=document.createElement("table");row(t,["Backtest origins","MAE","RMSE","MASE","Reference MASE"],true);row(t,[d.backtest.origins,d.backtest.mae.toFixed(2),d.backtest.rmse.toFixed(2),d.backtest.mase.toFixed(2),d.backtest.reference_mase.toFixed(2)]);$("bt").appendChild(t)}
+  st("st","Done.")}catch(e){st("st",e.message,true)}finally{b.disabled=false}};
+(async()=>{try{const R=await api("/api/results"),names=Object.keys(Object.values(R.results)[0].models),t=$("tb");row(t,["Series"].concat(names),true);
+ for(const[k,v]of Object.entries(R.results))row(t,[k+" ("+v.season+")"].concat(names.map(n=>v.models[n]?v.models[n].mase_mean.toFixed(2):"n/a")));
+ $("cfg").textContent=R.seeds+" seeded series per kind; "+R.origins+" rolling origins; no model beats naive on the random walk beyond noise.";st("rst","Loaded saved results.")}catch(e){st("rst",e.message,true)}})();
+</script></body></html>

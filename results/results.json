@@ -1,0 +1,706 @@
+{
+  "created_utc": "2026-10-18T01:51:35+00:00",
+  "environment": {
+    "platform": "Linux-6.18.44-fc-v139-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "numpy": "2.4.4",
+    "cpu_count": 1
+  },
+  "seeds": 5,
+  "origins": 12,
+  "leakage": {
+    "future_values_corrupted_forecasts_unchanged": true
+  },
+  "results": {
+    "daily_weekly": {
+      "season": 7,
+      "horizon": 14,
+      "models": {
+        "mean": {
+          "mase_mean": 4.241601436400368,
+          "mase_std": 0.1850149736276635,
+          "interval80_coverage_mean": 0.7309523809523809,
+          "seeds": 5
+        },
+        "naive": {
+          "mase_mean": 2.328408600171239,
+          "mase_std": 0.11008679483006396,
+          "interval80_coverage_mean": 0.85,
+          "seeds": 5
+        },
+        "seasonal_naive": {
+          "mase_mean": 1.014006062550194,
+          "mase_std": 0.08694050709127334,
+          "interval80_coverage_mean": 0.8595238095238095,
+          "seeds": 5
+        },
+        "drift": {
+          "mase_mean": 2.3471031644031064,
+          "mase_std": 0.1382373641730008,
+          "interval80_coverage_mean": 0.8523809523809524,
+          "seeds": 5
+        },
+        "moving_average": {
+          "mase_mean": 1.6541482297634527,
+          "mase_std": 0.04609373778588402,
+          "interval80_coverage_mean": 0.85,
+          "seeds": 5
+        },
+        "ses": {
+          "mase_mean": 1.6314458719156746,
+          "mase_std": 0.04714672928539101,
+          "interval80_coverage_mean": 0.8404761904761905,
+          "seeds": 5
+        },
+        "holt": {
+          "mase_mean": 2.340387469330705,
+          "mase_std": 0.6964255736972561,
+          "interval80_coverage_mean": 0.9095238095238095,
+          "seeds": 5
+        },
+        "holt_winters": {
+          "mase_mean": 0.7473516116317287,
+          "mase_std": 0.044218717411148474,
+          "interval80_coverage_mean": 0.8857142857142858,
+          "seeds": 5
+        },
+        "ridge_lags": {
+          "mase_mean": 0.819528759667443,
+          "mase_std": 0.06506355574454799,
+          "interval80_coverage_mean": 0.8404761904761904,
+          "seeds": 5
+        },
+        "gbm_lags": {
+          "mase_mean": 0.8047964482396116,
+          "mase_std": 0.03559601182334535,
+          "interval80_coverage_mean": 0.8595238095238095,
+          "seeds": 5
+        }
+      },
+      "best_by_mean_mase": "holt_winters",
+      "reference": "seasonal_naive",
+      "best_vs_reference_mae_ratio_ci": [
+        0.736991602187601,
+        0.6955546571793946,
+        0.7786368065887428
+      ],
+      "mae_by_horizon": {
+        "seasonal_naive": [
+          4.993,
+          5.729,
+          5.623,
+          5.725,
+          5.105,
+          5.399,
+          5.634,
+          5.75,
+          5.653,
+          5.66,
+          6.949,
+          5.535,
+          6.457,
+          6.922
+        ],
+        "holt_winters": [
+          3.811,
+          4.773,
+          3.926,
+          4.104,
+          4.025,
+          4.165,
+          3.892,
+          4.18,
+          4.224,
+          4.406,
+          4.96,
+          4.336,
+          4.456,
+          4.537
+        ],
+        "ridge_lags": [
+          4.346,
+          5.227,
+          4.288,
+          4.617,
+          4.238,
+          4.488,
+          4.209,
+          4.929,
+          4.205,
+          5.136,
+          5.199,
+          4.806,
+          4.997,
+          4.84
+        ],
+        "naive": [
+          10.203,
+          16.025,
+          18.959,
+          16.613,
+          15.59,
+          9.995,
+          5.634,
+          11.293,
+          15.55,
+          17.608,
+          17.258,
+          14.037,
+          10.29,
+          6.922
+        ],
+        "mean": [
+          22.593,
+          22.701,
+          23.618,
+          23.739,
+          22.421,
+          25.061,
+          24.458,
+          23.379,
+          23.227,
+          24.63,
+          24.87,
+          24.197,
+          26.113,
+          27.613
+        ]
+      }
+    },
+    "monthly_yearly": {
+      "season": 12,
+      "horizon": 12,
+      "models": {
+        "mean": {
+          "mase_mean": 3.7056386863046087,
+          "mase_std": 0.1855921453567817,
+          "interval80_coverage_mean": 0.5722222222222222,
+          "seeds": 5
+        },
+        "naive": {
+          "mase_mean": 1.8216083805933512,
+          "mase_std": 0.13464748431294096,
+          "interval80_coverage_mean": 0.9361111111111111,
+          "seeds": 5
+        },
+        "seasonal_naive": {
+          "mase_mean": 1.008069557140249,
+          "mase_std": 0.05310218383397543,
+          "interval80_coverage_mean": 0.875,
+          "seeds": 5
+        },
+        "drift": {
+          "mase_mean": 1.7891720385417809,
+          "mase_std": 0.14249049378930087,
+          "interval80_coverage_mean": 0.913888888888889,
+          "seeds": 5
+        },
+        "moving_average": {
+          "mase_mean": 1.5879618981005883,
+          "mase_std": 0.10484422968612715,
+          "interval80_coverage_mean": 0.8972222222222221,
+          "seeds": 5
+        },
+        "ses": {
+          "mase_mean": 1.8203067895833616,
+          "mase_std": 0.13345523500698112,
+          "interval80_coverage_mean": 0.9361111111111111,
+          "seeds": 5
+        },
+        "holt": {
+          "mase_mean": 2.7048258645224728,
+          "mase_std": 1.217566002379766,
+          "interval80_coverage_mean": 0.95,
+          "seeds": 5
+        },
+        "holt_winters": {
+          "mase_mean": 0.4643212783296404,
+          "mase_std": 0.06126705077591773,
+          "interval80_coverage_mean": 0.913888888888889,
+          "seeds": 5
+        },
+        "ridge_lags": {
+          "mase_mean": 0.5508983155074586,
+          "mase_std": 0.07777208236044285,
+          "interval80_coverage_mean": 0.9083333333333334,
+          "seeds": 5
+        },
+        "gbm_lags": {
+          "mase_mean": 0.5471408834037396,
+          "mase_std": 0.07915867282749887,
+          "interval80_coverage_mean": 0.9472222222222222,
+          "seeds": 5
+        }
+      },
+      "best_by_mean_mase": "holt_winters",
+      "reference": "seasonal_naive",
+      "best_vs_reference_mae_ratio_ci": [
+        0.46193566556124616,
+        0.4304656911145828,
+        0.4958322496822508
+      ],
+      "mae_by_horizon": {
+        "seasonal_naive": [
+          14.453,
+          15.786,
+          14.983,
+          16.921,
+          15.606,
+          14.381,
+          17.2,
+          15.146,
+          15.85,
+          13.656,
+          18.065,
+          14.818
+        ],
+        "holt_winters": [
+          7.07,
+          7.125,
+          6.81,
+          7.869,
+          7.666,
+          6.591,
+          7.152,
+          7.219,
+          7.679,
+          7.467,
+          7.047,
+          6.624
+        ],
+        "ridge_lags": [
+          9.004,
+          7.498,
+          9.523,
+          9.241,
+          9.635,
+          7.309,
+          9.132,
+          8.159,
+          9.303,
+          8.225,
+          7.272,
+          8.313
+        ],
+        "naive": [
+          15.051,
+          23.004,
+          30.055,
+          31.252,
+          36.773,
+          39.945,
+          38.979,
+          34.674,
+          30.671,
+          24.785,
+          17.485,
+          14.818
+        ],
+        "mean": [
+          50.492,
+          55.156,
+          56.675,
+          59.282,
+          58.849,
+          59.186,
+          59.127,
+          55.69,
+          55.423,
+          55.767,
+          60.407,
+          60.811
+        ]
+      }
+    },
+    "random_walk": {
+      "season": 1,
+      "horizon": 10,
+      "models": {
+        "mean": {
+          "mase_mean": 15.327695598418746,
+          "mase_std": 6.466680967764214,
+          "interval80_coverage_mean": 0.7666666666666667,
+          "seeds": 5
+        },
+        "naive": {
+          "mase_mean": 2.250297179779094,
+          "mase_std": 0.14946367740844693,
+          "interval80_coverage_mean": 0.9099999999999999,
+          "seeds": 5
+        },
+        "seasonal_naive": {
+          "mase_mean": 2.250297179779094,
+          "mase_std": 0.14946367740844693,
+          "interval80_coverage_mean": 0.9099999999999999,
+          "seeds": 5
+        },
+        "drift": {
+          "mase_mean": 2.2293044432958635,
+          "mase_std": 0.1867230630697697,
+          "interval80_coverage_mean": 0.89,
+          "seeds": 5
+        },
+        "moving_average": {
+          "mase_mean": 2.577700611995444,
+          "mase_std": 0.23912594049741184,
+          "interval80_coverage_mean": 0.9400000000000001,
+          "seeds": 5
+        },
+        "ses": {
+          "mase_mean": 2.2299253991084784,
+          "mase_std": 0.14819995608304673,
+          "interval80_coverage_mean": 0.9133333333333333,
+          "seeds": 5
+        },
+        "holt": {
+          "mase_mean": 2.320769034870304,
+          "mase_std": 0.32129835355953984,
+          "interval80_coverage_mean": 0.8400000000000001,
+          "seeds": 5
+        },
+        "ridge_lags": {
+          "mase_mean": 2.214299105633939,
+          "mase_std": 0.22694539207909634,
+          "interval80_coverage_mean": 0.8966666666666667,
+          "seeds": 5
+        },
+        "gbm_lags": {
+          "mase_mean": 2.417596304258219,
+          "mase_std": 0.3643145370377333,
+          "interval80_coverage_mean": 0.8800000000000001,
+          "seeds": 5
+        }
+      },
+      "best_by_mean_mase": "ridge_lags",
+      "reference": "naive",
+      "best_vs_reference_mae_ratio_ci": [
+        0.9861885472137595,
+        0.9402108490268564,
+        1.0292843466196526
+      ],
+      "mae_by_horizon": {
+        "seasonal_naive": [
+          0.899,
+          1.233,
+          1.66,
+          1.803,
+          1.784,
+          1.846,
+          1.871,
+          1.924,
+          2.151,
+          2.233
+        ],
+        "ridge_lags": [
+          0.891,
+          1.251,
+          1.632,
+          1.781,
+          1.771,
+          1.817,
+          1.833,
+          1.896,
+          2.114,
+          2.176
+        ],
+        "naive": [
+          0.899,
+          1.233,
+          1.66,
+          1.803,
+          1.784,
+          1.846,
+          1.871,
+          1.924,
+          2.151,
+          2.233
+        ],
+        "mean": [
+          11.557,
+          11.586,
+          11.686,
+          11.628,
+          11.663,
+          11.617,
+          11.772,
+          11.829,
+          11.972,
+          11.769
+        ]
+      }
+    },
+    "ar1": {
+      "season": 1,
+      "horizon": 10,
+      "models": {
+        "mean": {
+          "mase_mean": 1.271617109567848,
+          "mase_std": 0.14554546319167752,
+          "interval80_coverage_mean": 0.9166666666666666,
+          "seeds": 5
+        },
+        "naive": {
+          "mase_mean": 1.5586661412441156,
+          "mase_std": 0.21688018487698993,
+          "interval80_coverage_mean": 0.7566666666666666,
+          "seeds": 5
+        },
+        "seasonal_naive": {
+          "mase_mean": 1.5586661412441156,
+          "mase_std": 0.21688018487698993,
+          "interval80_coverage_mean": 0.7566666666666666,
+          "seeds": 5
+        },
+        "drift": {
+          "mase_mean": 1.5733529560547996,
+          "mase_std": 0.21958338053923132,
+          "interval80_coverage_mean": 0.75,
+          "seeds": 5
+        },
+        "moving_average": {
+          "mase_mean": 1.362864316471732,
+          "mase_std": 0.23897867846929008,
+          "interval80_coverage_mean": 0.8466666666666667,
+          "seeds": 5
+        },
+        "ses": {
+          "mase_mean": 1.4403109406941883,
+          "mase_std": 0.257178381855412,
+          "interval80_coverage_mean": 0.8033333333333333,
+          "seeds": 5
+        },
+        "holt": {
+          "mase_mean": 1.657386502098572,
+          "mase_std": 0.3102013050341701,
+          "interval80_coverage_mean": 0.7666666666666667,
+          "seeds": 5
+        },
+        "ridge_lags": {
+          "mase_mean": 1.40051756688887,
+          "mase_std": 0.26303383264239233,
+          "interval80_coverage_mean": 0.8133333333333332,
+          "seeds": 5
+        },
+        "gbm_lags": {
+          "mase_mean": 1.4989006370044966,
+          "mase_std": 0.20330868401733143,
+          "interval80_coverage_mean": 0.85,
+          "seeds": 5
+        }
+      },
+      "best_by_mean_mase": "mean",
+      "reference": "naive",
+      "best_vs_reference_mae_ratio_ci": [
+        0.8152488027290755,
+        0.6963129788966398,
+        0.9672970344807272
+      ],
+      "mae_by_horizon": {
+        "seasonal_naive": [
+          4.861,
+          5.804,
+          7.137,
+          6.487,
+          7.005,
+          7.625,
+          6.592,
+          6.932,
+          7.012,
+          6.937
+        ],
+        "ridge_lags": [
+          4.196,
+          5.267,
+          6.169,
+          5.653,
+          6.178,
+          7.085,
+          6.233,
+          6.336,
+          6.273,
+          6.309
+        ],
+        "naive": [
+          4.861,
+          5.804,
+          7.137,
+          6.487,
+          7.005,
+          7.625,
+          6.592,
+          6.932,
+          7.012,
+          6.937
+        ],
+        "mean": [
+          5.917,
+          6.085,
+          6.225,
+          5.719,
+          5.552,
+          5.133,
+          5.129,
+          4.649,
+          4.771,
+          4.945
+        ]
+      }
+    },
+    "level_shift": {
+      "season": 7,
+      "horizon": 14,
+      "models": {
+        "mean": {
+          "mase_mean": 4.221134612107955,
+          "mase_std": 0.21355344004562646,
+          "interval80_coverage_mean": 0.6523809523809523,
+          "seeds": 5
+        },
+        "naive": {
+          "mase_mean": 2.37687941224767,
+          "mase_std": 0.13466413810392228,
+          "interval80_coverage_mean": 0.8547619047619047,
+          "seeds": 5
+        },
+        "seasonal_naive": {
+          "mase_mean": 1.1584596021450166,
+          "mase_std": 0.08245812770789561,
+          "interval80_coverage_mean": 0.9261904761904762,
+          "seeds": 5
+        },
+        "drift": {
+          "mase_mean": 2.4118602952255266,
+          "mase_std": 0.15453453058774191,
+          "interval80_coverage_mean": 0.8547619047619047,
+          "seeds": 5
+        },
+        "moving_average": {
+          "mase_mean": 1.775486179001215,
+          "mase_std": 0.06528920655122587,
+          "interval80_coverage_mean": 0.8857142857142856,
+          "seeds": 5
+        },
+        "ses": {
+          "mase_mean": 2.2106261607087654,
+          "mase_std": 0.22618655347818736,
+          "interval80_coverage_mean": 0.9690476190476189,
+          "seeds": 5
+        },
+        "holt": {
+          "mase_mean": 2.6136871356889904,
+          "mase_std": 0.5325099558589288,
+          "interval80_coverage_mean": 0.919047619047619,
+          "seeds": 5
+        },
+        "holt_winters": {
+          "mase_mean": 0.9213420275318793,
+          "mase_std": 0.09872068920710535,
+          "interval80_coverage_mean": 0.9,
+          "seeds": 5
+        },
+        "ridge_lags": {
+          "mase_mean": 1.1195117507465842,
+          "mase_std": 0.10643484757892423,
+          "interval80_coverage_mean": 0.9619047619047618,
+          "seeds": 5
+        },
+        "gbm_lags": {
+          "mase_mean": 1.0457218124172991,
+          "mase_std": 0.05209779331093857,
+          "interval80_coverage_mean": 0.9452380952380952,
+          "seeds": 5
+        }
+      },
+      "best_by_mean_mase": "holt_winters",
+      "reference": "seasonal_naive",
+      "best_vs_reference_mae_ratio_ci": [
+        0.7926817387496764,
+        0.7192111681039184,
+        0.8764755890914154
+      ],
+      "mae_by_horizon": {
+        "seasonal_naive": [
+          7.502,
+          8.424,
+          5.779,
+          5.669,
+          5.031,
+          5.219,
+          5.512,
+          7.989,
+          7.804,
+          6.055,
+          6.723,
+          4.986,
+          5.975,
+          9.067
+        ],
+        "holt_winters": [
+          4.323,
+          5.567,
+          4.064,
+          4.033,
+          4.895,
+          4.969,
+          4.813,
+          4.593,
+          5.502,
+          5.046,
+          5.863,
+          5.247,
+          5.391,
+          8.41
+        ],
+        "ridge_lags": [
+          5.688,
+          6.463,
+          4.471,
+          4.849,
+          5.492,
+          6.56,
+          6.224,
+          8.001,
+          7.415,
+          5.876,
+          6.472,
+          6.308,
+          6.174,
+          8.647
+        ],
+        "naive": [
+          10.197,
+          15.995,
+          18.974,
+          16.653,
+          15.588,
+          10.014,
+          5.512,
+          11.224,
+          15.44,
+          17.582,
+          17.079,
+          14.104,
+          10.491,
+          9.067
+        ],
+        "mean": [
+          24.008,
+          22.979,
+          24.344,
+          23.072,
+          21.793,
+          23.526,
+          23.842,
+          24.948,
+          22.572,
+          23.913,
+          23.284,
+          24.159,
+          23.645,
+          27.531
+        ]
+      }
+    }
+  },
+  "total_seconds": 14.775987747000002
+}
